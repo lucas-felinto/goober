@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Actions, CanceledBy, Status } from '~/interfaces/types';
+import { CanceledBy, Status } from '~/interfaces/types';
 import { RideService } from '~/server/services/RideService';
 
 type ResponseData = {
@@ -7,7 +7,7 @@ type ResponseData = {
   error?: string;
 };
 
-interface Request extends NextApiRequest {
+interface IRequest extends NextApiRequest {
   body: {
     driverId?: number,
     riderId?: number
@@ -15,7 +15,7 @@ interface Request extends NextApiRequest {
 }
 
 export default async function acceptRideHandler(
-  req: Request,
+  req: IRequest,
   res: NextApiResponse<ResponseData>
 ) {
   if (req.method !== 'PATCH') {
@@ -35,12 +35,14 @@ export default async function acceptRideHandler(
     const canceledBy = driverId ? CanceledBy.DRIVER : CanceledBy.RIDER
 
     const ride = new RideService()
-    const update = await ride.update(Status.CANCELED, rideId, driverId, riderId, canceledBy);
+    const rideExists = await ride.findOne(rideId, driverId, riderId)
 
-    if (!update) {
-      // this checks if the ride is assign to the driver id
+    if (!rideExists) {
+      // checks exists and if the ride is assign to the correct driver and rider
       return res.status(400).json({ error: 'You are not able to cancel this ride.' });
     }
+
+    await ride.update(Status.CANCELED, rideId, driverId, riderId, canceledBy);
 
     return res.status(200).json({ message: 'Ride canceled' });
   } catch (error) {

@@ -8,7 +8,7 @@ type ResponseData = {
   error?: string;
 };
 
-interface Request extends NextApiRequest {
+interface IRequest extends NextApiRequest {
   body: {
     driverId: number,
     action: Actions.ACCEPT | Actions.DECLINE
@@ -16,7 +16,7 @@ interface Request extends NextApiRequest {
 }
 
 export default async function acceptRideHandler(
-  req: Request,
+  req: IRequest,
   res: NextApiResponse<ResponseData>
 ) {
   if (req.method !== 'PATCH') {

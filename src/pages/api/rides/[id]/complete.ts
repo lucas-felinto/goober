@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Actions, Status } from '~/interfaces/types';
+import { Status } from '~/interfaces/types';
 import { RideService } from '~/server/services/RideService';
 
 type ResponseData = {
@@ -7,14 +7,14 @@ type ResponseData = {
   error?: string;
 };
 
-interface Request extends NextApiRequest {
+interface IRequest extends NextApiRequest {
   body: {
     driverId: number,
   }
 }
 
 export default async function acceptRideHandler(
-  req: Request,
+  req: IRequest,
   res: NextApiResponse<ResponseData>
 ) {
   if (req.method !== 'PATCH') {
@@ -31,13 +31,14 @@ export default async function acceptRideHandler(
     }
 
     const ride = new RideService()
-    const update = await ride.update(Status.COMPLETED, rideId, driverId);
+    const rideExists = await ride.findOne(rideId, driverId)
 
-    if (!update) {
-      // this checks if the ride is assign to the driver id
+    if (!rideExists) {
+      // checks exists and if the ride is assign to the correct driver
       return res.status(400).json({ error: 'You are not able to complete this ride.' });
     }
 
+    await ride.update(Status.COMPLETED, rideId, driverId);
     return res.status(200).json({ message: 'Ride completed' });
   } catch (error) {
     console.error(error);

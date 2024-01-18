@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Status } from '~/interfaces/types';
-import { RideService } from '~/server/services/RideService';
+import { DriverStatus, Status } from '~/interfaces/types';
+import { DriverService } from '~/server/services/DriverService';
 
 type ResponseData = {
   message?: string;
@@ -9,7 +9,7 @@ type ResponseData = {
 
 interface IRequest extends NextApiRequest {
   body: {
-    driverId: number,
+    status: DriverStatus.AVAILABLE | DriverStatus.ON_RIDE,
   }
 }
 
@@ -23,24 +23,16 @@ export default async function acceptRideHandler(
   }
 
   try {
-    const rideId = parseInt(req.query.id as string);
-    const { driverId } = req.body;
+    const driverId = parseInt(req.query.id as string);
+    const { status } = req.body;
 
-    if (isNaN(rideId) || isNaN(driverId)) {
+    if (isNaN(driverId)) {
       return res.status(400).json({ error: 'Invalid ride or driver ID' });
     }
 
-    //More and better validations can be added.
+    const driver = new DriverService()
 
-    const ride = new RideService()
-    const rideExists = await ride.findOne(rideId, driverId)
-
-    if (!rideExists) {
-      // checks exists and if the ride is assign to the correct driver
-      return res.status(400).json({ error: 'You are not able to start this ride.' });
-    }
-
-    await ride.update(Status.IN_PROGRESS, rideId, driverId);
+    await driver.update(driverId, status);
 
     return res.status(200).json({ message: 'Ride in progress' });
   } catch (error) {

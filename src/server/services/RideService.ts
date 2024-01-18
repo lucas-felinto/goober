@@ -38,6 +38,17 @@ export class RideService implements IRide {
     })
   }
 
+  async findOne(id: number, driverId?: number, riderId?: number, status?: Status): Promise<Ride | null> {
+    return await db.ride.findUnique({
+      where: {
+        id,
+        driverId,
+        riderId,
+        status
+      }
+    })
+  }
+
   async getRideRequestsForDriver(driverId: number): Promise<Ride | null> {
     return await db.ride.findFirst({
       where: {
