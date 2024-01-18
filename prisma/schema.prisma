@@ -10,31 +10,53 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Riders {
+model Rider {
   id        Int      @id @default(autoincrement())
   name      String
+  image     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Rides     Rides?
+  Rides     Ride[]
 }
 
-model Drivers {
+model Driver {
   id        Int      @id @default(autoincrement())
   name      String
+  status    DriverStatus
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Rides     Rides?
+  Rides     Ride[]
 }
 
-model Rides {
-  id         Int      @id @default(autoincrement())
-  status     String
+model Ride {
+  id         Int         @id @default(autoincrement())
+  status     RideStatus
   fare       Int
-  rider      Riders   @relation(fields: [riderId], references: [id])
-  riderId    Int      @unique
-  driver     Drivers  @relation(fields: [driverId], references: [id])
-  driverId   Int      @unique
-  canceledBy String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  rider      Rider       @relation(fields: [riderId], references: [id])
+  riderId    Int
+  driver     Driver      @relation(fields: [driverId], references: [id])
+  driverId   Int
+  canceledBy CanceledBy?
+  startAt    DateTime?
+  endAt      DateTime?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+enum RideStatus {
+  requested
+  accepted
+  in_progress
+  completed
+  canceled
+}
+
+enum CanceledBy {
+  rider
+  driver
+}
+
+enum DriverStatus {
+  available
+  on_ride
 }
