@@ -13,50 +13,32 @@ datasource db {
 model Rider {
   id        Int      @id @default(autoincrement())
   name      String
-  image     String
+  image     String?
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime?
   Rides     Ride[]
 }
 
 model Driver {
   id        Int      @id @default(autoincrement())
   name      String
-  status    DriverStatus
+  status    String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime?
   Rides     Ride[]
 }
 
 model Ride {
   id         Int         @id @default(autoincrement())
-  status     RideStatus
+  status     String
   fare       Int
   rider      Rider       @relation(fields: [riderId], references: [id])
   riderId    Int
   driver     Driver      @relation(fields: [driverId], references: [id])
   driverId   Int
-  canceledBy CanceledBy?
+  canceledBy String?
   startAt    DateTime?
   endAt      DateTime?
   createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-}
-
-enum RideStatus {
-  requested
-  accepted
-  in_progress
-  completed
-  canceled
-}
-
-enum CanceledBy {
-  rider
-  driver
-}
-
-enum DriverStatus {
-  available
-  on_ride
+  updatedAt  DateTime?
 }
