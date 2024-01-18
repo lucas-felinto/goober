@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Rider" ALTER COLUMN "updatedAt" DROP NOT NULL,
+ALTER COLUMN "image" DROP NOT NULL;
