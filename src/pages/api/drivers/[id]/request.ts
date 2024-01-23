@@ -4,14 +4,18 @@ import { DriverService } from '~/server/services/DriverService';
 import { RideService } from '~/server/services/RideService';
 
 type ResponseData = {
-  rideRequests?: Ride | null;
   error?: string;
-};
- 
+} | Ride | null;
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
+  if (req.method !== 'GET') {
+    res.setHeader('Allow', ['GET']);
+    return res.status(405).end(`Method ${req.method} Not Allowed`);
+  }
+
   try {
     const { id } = req.query;
     const driverId = parseInt(id as string);
@@ -27,14 +31,10 @@ export default async function handler(
       return res.status(404).json({ error: 'Driver not found' });
     }
 
-    if (driverDetails.status !== DriverStatus.AVAILABLE) {
-      return res.status(400).json({ error: 'Not available for new requests' });
-    }
-
     const rideService = new RideService();
-    const rideRequests = await rideService.getRideRequestsForDriver(driverId);
-    
-    res.status(200).json({ rideRequests });
+    const rideRequest = await rideService.getRideRequestForDriver(driverId);
+
+    return res.status(200).json(rideRequest);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

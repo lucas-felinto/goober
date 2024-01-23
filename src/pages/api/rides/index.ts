@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { GeoLocation, Ride } from '~/interfaces/types';
+import { DriverStatus, GeoLocation, Ride, Rider } from '~/interfaces/types';
 import { DriverService } from '~/server/services/DriverService';
 import { RideService } from '~/server/services/RideService';
 
@@ -12,8 +12,12 @@ type ResponseData = {
 interface IRequest extends NextApiRequest {
   body: {
     riderId: number,
-    pickupLocation: GeoLocation,
-    dropoffLocation: GeoLocation
+    distance: string,
+    coordinates: string,
+    rider: Rider,
+    fare: number,
+    pickupAddress: string,
+    dropoffAddress: string
   }
 }
 
@@ -27,9 +31,9 @@ export default async function handler(
   }
 
   try {
-    const { riderId, pickupLocation, dropoffLocation } = req.body;
+    const { riderId, fare, distance, coordinates, pickupAddress, dropoffAddress } = req.body;
 
-    if (!riderId || !pickupLocation || !dropoffLocation) {
+    if (!riderId || !fare || !distance || !pickupAddress || !dropoffAddress) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
@@ -37,12 +41,12 @@ export default async function handler(
     const availableDriver = await driver.findAvailableDriver()
 
     if (!availableDriver) {
-      return res.status(200).json({ message: "No available driver at the moment, try again later" })
+      return res.status(400).json({ message: "No available driver at the moment, try again later" })
     }
 
     const ride = new RideService()
-    const fare = await ride.calculateFare(pickupLocation, dropoffLocation)
-    const response = await ride.create(riderId, availableDriver.id, fare)
+    const response = await ride.create({ riderId, driverId: availableDriver.id, fare, distance, coordinates, pickupAddress, dropoffAddress })
+    await driver.update(availableDriver.id, DriverStatus.RESERVED);
 
     return res.status(201).json({ ride: response })
   } catch (error) {

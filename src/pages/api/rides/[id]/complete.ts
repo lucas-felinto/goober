@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Status } from '~/interfaces/types';
+import { DriverStatus, Status } from '~/interfaces/types';
+import { DriverService } from '~/server/services/DriverService';
 import { RideService } from '~/server/services/RideService';
 
 type ResponseData = {
@@ -31,14 +32,17 @@ export default async function acceptRideHandler(
     }
 
     const ride = new RideService()
-    const rideExists = await ride.findOne(rideId, driverId)
+    const rideExists = await ride.findOne({ id: rideId, driverId })
 
     if (!rideExists) {
       // checks exists and if the ride is assign to the correct driver
       return res.status(400).json({ error: 'You are not able to complete this ride.' });
     }
 
-    await ride.update(Status.COMPLETED, rideId, driverId);
+    const driver = new DriverService()
+    await driver.update(driverId, DriverStatus.AVAILABLE)
+
+    await ride.update({ status: Status.COMPLETED, rideId, driverId });
     return res.status(200).json({ message: 'Ride completed' });
   } catch (error) {
     console.error(error);

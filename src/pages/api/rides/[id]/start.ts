@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Status } from '~/interfaces/types';
+import { DriverStatus, Status } from '~/interfaces/types';
+import { DriverService } from '~/server/services/DriverService';
 import { RideService } from '~/server/services/RideService';
 
 type ResponseData = {
@@ -32,15 +33,17 @@ export default async function acceptRideHandler(
 
     //More and better validations can be added.
 
+    const driver = new DriverService()
     const ride = new RideService()
-    const rideExists = await ride.findOne(rideId, driverId)
+    const rideExists = await ride.findOne({ id: rideId, driverId })
 
     if (!rideExists) {
       // checks exists and if the ride is assign to the correct driver
       return res.status(400).json({ error: 'You are not able to start this ride.' });
     }
 
-    await ride.update(Status.IN_PROGRESS, rideId, driverId);
+    await ride.update({ status: Status.IN_PROGRESS, rideId, driverId });
+    await driver.update(driverId, DriverStatus.ON_RIDE)
 
     return res.status(200).json({ message: 'Ride in progress' });
   } catch (error) {
