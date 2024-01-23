@@ -1,12 +1,14 @@
 export type Rider = {
   id: number;
   name: string;
-  rides: Ride[]
+  imageUrl?: string;
+  rides?: Ride[]
 };
 
 export type Driver = {
   id: number;
   name: string;
+  imageUrl?: string;
   status: string;
   rides?: Ride[];
 }
@@ -15,10 +17,14 @@ export type Ride = {
   id?: number;
   status: string;
   fare: number;
+  distance: string;
+  pickupAddress: string;
+  dropoffAddress: string;
+  coordinates: string
   rider?: Rider;
   riderId: number;
   driver?: Driver;
-  driverId: number;
+  driverId?: number | null;
   canceledBy?: string | null;
   startAt?: Date | null;
   endAt?: Date | null;
@@ -26,7 +32,8 @@ export type Ride = {
 
 export enum DriverStatus {
   AVAILABLE = "available",
-  ON_RIDE = "on_ride"
+  ON_RIDE = "on_ride",
+  RESERVED = "reserved"
 }
 
 export enum Status {
@@ -44,7 +51,10 @@ export enum CanceledBy {
 
 export enum Actions {
   ACCEPT = "accept",
-  DECLINE = "decline"
+  START = "start",
+  DECLINE = "decline",
+  CANCEL = "cancel",
+  COMPLETE = "complete"
 }
 
 export type GeoLocation = { lat: number, lng: number }
