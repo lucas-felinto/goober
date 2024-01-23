@@ -58,3 +58,8 @@ export enum Actions {
 }
 
 export type GeoLocation = { lat: number, lng: number }
+
+export type Coordinates = {
+  pickupCoordinates: GeoLocation;
+  dropoffCoordinates: GeoLocation;
+}

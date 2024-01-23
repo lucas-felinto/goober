@@ -4,7 +4,7 @@ import UserCard from '~/app/components/UserCard';
 import GoogleMapComponent from '~/app/components/Map';
 import RideInfoCard from '~/app/components/Rider/RideInfoCard';
 import { useQuery } from '@tanstack/react-query';
-import { GeoLocation, Status } from '~/interfaces/types';
+import { Coordinates, GeoLocation, Status } from '~/interfaces/types';
 import ride from '~/app/services/RideService'
 import supabase from '~/app/services/SupabaseService'
 import NotificationCard from '~/app/components/Rider/NotificationCard';
@@ -29,34 +29,29 @@ const Rider = () => {
   const { data: ongoingRide, refetch: refetchOngoingRide } = useQuery({
     queryKey: ['ongoingRide'],
     queryFn: async () => await ride.getOngoingRide({ riderId: selectedRider?.id }),
+    // enabled: Boolean(selectedRider?.id),
   });
 
   //Real time channel 
   supabase.watchRide(refetchOngoingRide);
 
-  const { data: fare, refetch: refetchFare } = useQuery({
+  const { data: fare } = useQuery({
     queryKey: ['fare'],
     queryFn: async () => await ride.calculateFare(pickupCoordinates, dropoffCoordinates),
+    enabled: !ongoingRide
   })
-
-  useEffect(() => {
-    if (pickupCoordinates && dropoffCoordinates) refetchFare()
-  }, [pickupCoordinates, dropoffCoordinates])
 
   useEffect(() => {
     if (ongoingRide?.status === Status.ACCEPTED) {
       setSearchingDriver(false)
     }
 
-    // if (ongoingRide?.coordinates && !pickupCoordinates) {
-    //   // Set map coordinates in case of route refresh  
-    //   const coordinates: {
-    //     pickupCoordinates: GeoLocation;
-    //     dropoffCoordinates: GeoLocation;
-    //   } = JSON.parse(ongoingRide?.coordinates)
-    //   setPickupCoordinates(coordinates.pickupCoordinates)
-    //   setDropoffCoordinates(coordinates.dropoffCoordinates)
-    // }
+    // Set map coordinates in case of route refresh  
+    if (ongoingRide?.coordinates && !pickupCoordinates.lat) {
+      const coordinates: Coordinates = JSON.parse(ongoingRide?.coordinates)
+      setPickupCoordinates(coordinates.pickupCoordinates)
+      setDropoffCoordinates(coordinates.dropoffCoordinates)
+    }
   }, [ongoingRide])
 
   useEffect(() => {
@@ -109,7 +104,7 @@ const Rider = () => {
           </>
         )}
         <GoogleMapComponent loadMap={setMapsLoaded} pickupMarker={pickupCoordinates} dropoffMarker={dropoffCoordinates} />
-        {isMapsLoaded && (
+        {isMapsLoaded && !ongoingRide && (
           <>
             <AutoCompleteSearchBox placeholder="Pickup Location" state={{ location: pickupLocation, setLocation: setPickupLocation, ref: pickupRef, setCoordinates: setPickupCoordinates }} />
             <AutoCompleteSearchBox placeholder="Dropoff Location" state={{ location: dropoffLocation, setLocation: setDropoffLocation, ref: dropoffRef, setCoordinates: setDropoffCoordinates }} />

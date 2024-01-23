@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Actions, GeoLocation, Ride, Status } from '~/interfaces/types';
+import { Actions, Coordinates, GeoLocation, Ride, Status } from '~/interfaces/types';
 import GoogleMapComponent from '~/app/components/Map';
 import MoveUpPassangerCard from '../MoveUpPassangerCard';
 
@@ -10,10 +10,7 @@ type OngoingRideType = {
 
 const OngoingRide: React.FC<OngoingRideType> = ({ ride, handleRide }) => {
   const parsedCoordinates = useMemo(() => {
-    return JSON.parse(ride.coordinates) as {
-      pickupCoordinates: GeoLocation;
-      dropoffCoordinates: GeoLocation;
-    };
+    return JSON.parse(ride.coordinates) as Coordinates;
   }, [ride.coordinates]);
 
   const { status } = ride;
