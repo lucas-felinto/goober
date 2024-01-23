@@ -7,16 +7,17 @@ export async function calculateDistance(pickupLocation: GeoLocation, dropoffLoca
 
   const { data } = await maps.distancematrix({
     params: {
-    key: process.env.GOOGLE_MAPS_API_KEY,
-    origins: [
-      pickupLocation,
-    ],
-    destinations: [
-      dropoffLocation
-    ],
-    mode: TravelMode.driving,
-    units: UnitSystem.imperial
-  }});
+      key: process.env.GOOGLE_MAPS_API_KEY,
+      origins: [
+        pickupLocation,
+      ],
+      destinations: [
+        dropoffLocation
+      ],
+      mode: TravelMode.driving,
+      units: UnitSystem.imperial
+    }
+  });
 
   const elements = data.rows
   return elements[0]

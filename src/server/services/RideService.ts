@@ -1,5 +1,5 @@
-import { IRide } from "~/interfaces/RideInterface";
-import { CanceledBy, GeoLocation, Ride, Status } from "~/interfaces/types";
+import { CreateParams, UpdateParams, FindOneParams, IRide, NullableRidePromise } from "~/interfaces/RideInterface";
+import { GeoLocation, Ride, Status } from "~/interfaces/types";
 import { db } from "../db";
 import { calculateDistance } from "../utils/MapsService";
 
@@ -12,33 +12,47 @@ export class RideService implements IRide {
     this.RATE_PER_KM = 2;
   }
 
-  async create(riderId: number, driverId: number, fare: number): Promise<Ride> {
+  async create({ riderId, driverId, fare, distance, coordinates, pickupAddress, dropoffAddress }: CreateParams): Promise<Ride> {
     return await db.ride.create({
       data: {
-        riderId,
-        driverId,
+        rider: {
+          connect: {
+            id: riderId
+          }
+        },
+        driver: {
+          connect: {
+            id: driverId
+          }
+        },
         fare,
+        distance,
+        coordinates,
+        pickupAddress,
+        dropoffAddress,
         status: Status.REQUESTED,
       }
     })
   }
 
-  async update(status: Status, rideId: number, driverId?: number, riderId?: number, canceledBy?: CanceledBy): Promise<Ride | null> {
+  async update({ rideId, status, driverId, riderId, canceledBy }: UpdateParams): NullableRidePromise {
     return await db.ride.update({
-      data: {
-        status
-      },
       where: {
         id: rideId,
-        driverId,
-        riderId,
+      },
+      data: {
+        driver: {
+          connect: {
+            id: driverId
+          }
+        },
         status,
         canceledBy
-      }
+      },
     })
   }
 
-  async findOne(id: number, driverId?: number, riderId?: number, status?: Status): Promise<Ride | null> {
+  async findOne({ id, driverId, riderId, status }: FindOneParams): NullableRidePromise {
     return await db.ride.findUnique({
       where: {
         id,
@@ -49,7 +63,18 @@ export class RideService implements IRide {
     })
   }
 
-  async getRideRequestsForDriver(driverId: number): Promise<Ride | null> {
+  async findOngoingRide(driverId?: number, riderId?: number): Promise<Ride | null> {
+    const potentialStatuses = [Status.ACCEPTED, Status.IN_PROGRESS];
+    return await db.ride.findFirst({
+      where: {
+        driverId,
+        riderId,
+        status: { in: potentialStatuses },
+      }
+    });
+  };
+
+  async getRideRequestForDriver(driverId: number): NullableRidePromise {
     return await db.ride.findFirst({
       where: {
         driverId,
@@ -58,7 +83,7 @@ export class RideService implements IRide {
     })
   }
 
-  async handlerRideRequest(rideId: number, driverId: number): Promise<Ride | null> {
+  async handleRideRequest(rideId: number, driverId: number): NullableRidePromise {
     return await db.ride.update({
       where: { id: rideId },
       data: { driverId, status: Status.ACCEPTED }
@@ -83,6 +108,6 @@ export class RideService implements IRide {
 
   private calculateTotalFare(distanceInMeters: number): number {
     const distanceInKilometers = distanceInMeters / 1000;
-    return this.BASE_FARE + (distanceInKilometers * this.RATE_PER_KM);
+    return (this.BASE_FARE + (distanceInKilometers * this.RATE_PER_KM));
   }
 }
