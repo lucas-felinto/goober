@@ -11,34 +11,39 @@ datasource db {
 }
 
 model Rider {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   name      String
-  image     String?
-  createdAt DateTime @default(now())
+  imageUrl  String?
+  createdAt DateTime  @default(now())
   updatedAt DateTime?
   Rides     Ride[]
 }
 
 model Driver {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   name      String
+  imageUrl  String?
   status    String
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
   updatedAt DateTime?
   Rides     Ride[]
 }
 
 model Ride {
-  id         Int         @id @default(autoincrement())
-  status     String
-  fare       Int
-  rider      Rider       @relation(fields: [riderId], references: [id])
-  riderId    Int
-  driver     Driver      @relation(fields: [driverId], references: [id])
-  driverId   Int
-  canceledBy String?
-  startAt    DateTime?
-  endAt      DateTime?
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime?
+  id             Int       @id @default(autoincrement())
+  status         String
+  fare           Int
+  distance       String
+  pickupAddress  String
+  dropoffAddress String
+  coordinates    String
+  rider          Rider?    @relation(fields: [riderId], references: [id])
+  riderId        Int
+  driver         Driver?   @relation(fields: [driverId], references: [id])
+  driverId       Int
+  canceledBy     String?
+  startedAt      DateTime?
+  completedAt    DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime?
 }

@@ -17,7 +17,7 @@ export const env = createEnv({
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
-    GOOGLE_MAPS_API_KEY: z.string()
+    GOOGLE_MAPS_API_KEY: z.string(),
   },
 
   /**
