@@ -8,6 +8,9 @@ export default {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
+      backgroundImage: {
+        'goober-bg': "url('public/videos/ride.mp4')",
+      }
     },
   },
   plugins: [],
