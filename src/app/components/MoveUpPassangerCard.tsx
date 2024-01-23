@@ -26,7 +26,7 @@ export default function MoveUpPassangerCard({ address, message }: MoveUpPassange
           <line x1="15" x2="15" y1="6" y2="21"></line>
         </svg>
         <div className="space-y-1">
-          <h3 className="whitespace-nowrap tracking-tight text-lg font-semibold text-green-800">{address}</h3>
+          <h3 className="whitespace-nowrap text-center tracking-tight text-lg font-semibold text-green-800">{address}</h3>
           <p className="text-sm flex items-center space-x-2 text-green-600">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +45,7 @@ export default function MoveUpPassangerCard({ address, message }: MoveUpPassange
               <path d="M9 17h6"></path>
               <circle cx="17" cy="17" r="2"></circle>
             </svg>
-            <span>{message}</span>
+            <span className='text-left'>{message}</span>
           </p>
         </div>
       </div>
