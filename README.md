@@ -1,7 +1,9 @@
 
 # Goober
 
-Goober is an ride-sharing web application, designed as a minimum viable product (MVP) that closely emulates real-world ride-sharing services. This project as built as a full-stack solution, including a front-end user interface, back-end API, real-time data handling, and a database.
+![Screenshot 2024-01-23 at 22 59 46](https://github.com/lucas-felinto/goober/assets/62717182/88be88f9-52b7-4cb9-af6e-ad514b89154b)
+
+Goober is an ride-sharing web application, designed as a minimum viable product (MVP) that closely emulates real-world ride-sharing services. This project was built as a full-stack solution, including a front-end user interface, back-end API, real-time data handling, and a database.
 
 ## Running Live
 [Web-app deployed at Vercel]("")
