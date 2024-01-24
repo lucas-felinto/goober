@@ -47,6 +47,6 @@ Goober is an ride-sharing web application, designed as a minimum viable product 
 
 ## Technical Decisions
 - **Database Mocking and User Switching**: Implemented mock data for riders and drivers, enabling dynamic user profile switchin.
-- **UI/UX Design with Vercel v0**: Chose AI tool [Vercel v0](https://v0.dev/) for rapid UI design. This tool significantly expedited the design process, allowing us to focus on functionality
+- **UI/UX Design with Vercel v0**: Chose AI tool [Vercel v0](https://v0.dev/) for rapid UI design. This tool significantly expedited the design process, allowing to focus on functionality
 - **Integration of Supabase with Prisma**: Combined Supabase for real-time updates and Prisma for ORM,
 
