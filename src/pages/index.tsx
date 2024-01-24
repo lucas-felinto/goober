@@ -1,9 +1,13 @@
 
+import Head from 'next/head';
 import Link from 'next/link';
 
 export default function HomePage() {
   return (
     <section className="w-full h-screen from-indigo-500 bg-cover bg-[url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZmZzMmFzNXV5NGRmb3IzNW9vbWVjZmU0Y2N0bTdyMWkzYmc1OGJraCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/BbSxLhu3UR2PG0VxKm/giphy.gif')] flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
+      <Head>
+        <title>Goober</title>
+      </Head>
       <div className="space-y-6">
         <h1 className="text-5xl text-center font-extrabold text-white">Goober</h1>
         <p className="text-xl text-center text-white">Your journey, your way.</p>

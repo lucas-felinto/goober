@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import React, { useEffect } from 'react'
+import Head from 'next/head'
 
 import OngoingRide from '~/app/components/Driver/OngoingRide'
 import RideRequestCard from '~/app/components/Driver/RideRequestCard'
@@ -57,6 +58,9 @@ function Driver() {
 
   return (
     <div className="flex items-center justify-center h-screen bg-gradient-to-r from-blue-100 to-blue-200">
+      <Head>
+        <title>Driver</title>
+      </Head>
       {!ongoingRide?.id && !rideRequest && selectedDriver && (
         <div>
           <WaitingRideRequestCard driver={selectedDriver} />
