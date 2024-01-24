@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Head from 'next/head';
 
@@ -100,7 +100,7 @@ const Rider = () => {
       </Head>
       <div className="max-w-md mx-auto my-10 p-6 bg-white shadow-md rounded-lg space-y-4">
         {!selectedRider && <LoadingRider />}
-        {selectedRider && !ongoingRide?.id && !searchingDriver && (
+        {selectedRider && !searchingDriver && (
           <>
             <h2 className="text-3xl font-semibold text-center mb-4">{`Where today, ${selectedRider.name}?`}</h2>
             <UserCard
