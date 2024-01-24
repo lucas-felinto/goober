@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
-import { Actions, Coordinates, Ride, Status } from '~/interfaces/types';
+import type { Coordinates, Ride } from '~/interfaces/types';
+import { Actions, Status } from '~/interfaces/types';
 import GoogleMapComponent from '~/app/components/Map';
 import MoveUpPassangerCard from '../MoveUpPassangerCard';
 

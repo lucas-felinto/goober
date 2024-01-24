@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Person } from '../components/UserCard';
+import { Driver } from '~/interfaces/types';
 
 const useDriver = () => {
   const [selectedDriver, setSelectedDriver] = useState<Person>();

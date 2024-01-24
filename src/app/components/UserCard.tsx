@@ -5,7 +5,7 @@ import DropdownIcon from './Icons/DropdownIcon';
 type UserCardProps = {
   user: Person,
   selectUser: Dispatch<SetStateAction<Person | undefined>>
-  usersOptions: any
+  usersOptions: Person[]
 }
 
 export type Person = {

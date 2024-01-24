@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Dispatch, RefObject, SetStateAction, useCallback } from 'react';
 import { Autocomplete } from '@react-google-maps/api';
 import { GeoLocation } from '~/interfaces/types';
@@ -21,7 +20,7 @@ export default function AutoCompleteSearchBox({ placeholder, state }: SearchBoxT
     if (autocomplete) {
       const place = autocomplete.getPlace();
       if (place) {
-        const formattedAddress = place.formatted_address || '';
+        const formattedAddress = place.formatted_address ?? '';
         setLocation(formattedAddress);
 
         if (place.geometry && place.geometry.location) {

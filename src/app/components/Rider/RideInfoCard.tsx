@@ -15,7 +15,7 @@ const RideInfoCard = ({ fare, distance, duration }: RideInfoCardType) => {
     <div className="w-full max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden">
       <div className="flex justify-between items-center p-6">
         <div className="text-lg font-bold">Ride Details</div>
-        <CarIcon className="h-6 w-6 text-gray-400" />
+        <CarIcon />
       </div>
       <div className="p-6">
         <div className="grid gap-4">
