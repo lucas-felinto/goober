@@ -1,28 +1,50 @@
-# Create T3 App
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+# Goober
 
-## What's next? How do I make an app with this?
+Goober is an ride-sharing web application, designed as a minimum viable product (MVP) that closely emulates real-world ride-sharing services. This project as built as a full-stack solution, including a front-end user interface, back-end API, real-time data handling, and a database.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Running Live
+[Web-app deployed at Vercel]("")
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Running Locally
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+```bash
+  pnpm install
+  pnpm run dev
+```
+    
+## Technologies
+- **Framework**: Built on the [T3 Stack](https://create.t3.gg/) stack for efficient full-stack development.
+- **Real-Time Data**: Supabase client for real-time data management.
+- **Database**: Supabase using Postgresql and Prisma for database operations.
+- **Geolocation Service**: Google Maps API for geolocation services.
+- **State Management**: React Query for efficient state syncing with backend data.
+- **UI Components**: Tailwind CSS with some AI-generated components from [Vercel v0](https://v0.dev/).
+- **Deployment**: Vercel for hosting the application.
 
-## Learn More
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## Learnings
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+- ### Challenges Faced: 
+  - **UI Handling:** Managing ride status with numerous possible statuses 
+  - **Potential Backend Over-Engineering:** There was a tendency to overthink solutions, potentially leading to more complex implementations than necessary.
+- ### Key Learnings: 
+  - **Google Maps API**: Geolocation and routing functionalities
+  - **Supabase**: Explored the power and versatility of Supabase, particularly its real-time capabilities, enhancing the app functionalities.
+  - **Tailwind CSS**: Keeping clean and responsive UI
+- ### Points of Pride
+  - **Clean and minimalist UI:** User-friendly interface
+  - **Abstraction levels:** Facilitating code reusability and reducing redundancy
+  - **First real-time application:** Successfully ventured into the realm of real-time applications
+- ### Areas for Improvement
+    - **Error Handling:** Handler better possibles errors
+    - **Post-Ride UI Enhancement:** Lack of UI post complete ride
+    - **State Management Complexity:** Faced challenges in managing the state, especially in rider UI with Maps Location API calls, indicating a need for better state management practices.
+- ### Development Time
+    - **Execution:** From initial design and technologies studies to the first live deploy, the project was completed within approximately 24 hours total
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+## Technical Decisions
+- **Database Mocking and User Switching**: Implemented mock data for riders and drivers, enabling dynamic user profile switchin.
+- **UI/UX Design with Vercel v0**: Chose AI tool [Vercel v0](https://v0.dev/) for rapid UI design. This tool significantly expedited the design process, allowing us to focus on functionality
+- **Integration of Supabase with Prisma**: Combined Supabase for real-time updates and Prisma for ORM,
 
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
