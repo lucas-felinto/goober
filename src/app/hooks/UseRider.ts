@@ -17,7 +17,7 @@ const useRider = () => {
 
   useEffect(() => {
     if (riders && riders.length > 0 && !selectedRider) {
-      setSelectedRider(riders[0]);
+      // setSelectedRider(riders[0]);
     }
   }, [riders, selectedRider]);
 

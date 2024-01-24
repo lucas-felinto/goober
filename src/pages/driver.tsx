@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import React, { useEffect } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import Head from 'next/head'
 
 import OngoingRide from '~/app/components/Driver/OngoingRide'
@@ -14,6 +14,7 @@ import supabase from '~/app/services/SupabaseService'
 import driver from '~/app/services/DriverService'
 
 import useDriver from '~/app/hooks/UseDriver'
+import LoadingDriver from '~/app/components/LoadingDriver'
 
 type RideAction = { id: number; driverId: number };
 
@@ -61,6 +62,7 @@ function Driver() {
       <Head>
         <title>Driver</title>
       </Head>
+      {!selectedDriver && <LoadingDriver />}
       {!ongoingRide?.id && !rideRequest && selectedDriver && (
         <div>
           <WaitingRideRequestCard driver={selectedDriver} />

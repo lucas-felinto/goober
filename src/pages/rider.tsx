@@ -9,6 +9,7 @@ import RideInfoCard from '~/app/components/Rider/RideInfoCard';
 import NotificationCard from '~/app/components/Rider/NotificationCard';
 import SearchingDriverCard from '~/app/components/Rider/SearchingDriverCard';
 import MoveUpPassangerCard from '~/app/components/MoveUpPassangerCard';
+import LoadingRider from '~/app/components/Rider/LoadingRider';
 
 import { Coordinates, GeoLocation, Status } from '~/interfaces/types';
 import ride from '~/app/services/RideService'
@@ -98,6 +99,7 @@ const Rider = () => {
         <title>Rider</title>
       </Head>
       <div className="max-w-md mx-auto my-10 p-6 bg-white shadow-md rounded-lg space-y-4">
+        {!selectedRider && <LoadingRider />}
         {selectedRider && !ongoingRide?.id && !searchingDriver && (
           <>
             <h2 className="text-3xl font-semibold text-center mb-4">{`Where today, ${selectedRider.name}?`}</h2>
