@@ -24,10 +24,6 @@ const Rider = () => {
   const [isMapsLoaded, setMapsLoaded] = useState<boolean>(false);
   const [isNotificationOpen, setNotificationOpen] = useState<boolean>(false);
   const [searchingDriver, setSearchingDriver] = useState<boolean>(false);
-
-  const pickupRef = useRef<google.maps.places.Autocomplete>(null);
-  const dropoffRef = useRef<google.maps.places.Autocomplete>(null);
-
   const { riders, selectedRider, setSelectedRider } = useRider();
 
   const { data: ongoingRide, refetch: refetchOngoingRide } = useQuery({
@@ -115,8 +111,8 @@ const Rider = () => {
         <GoogleMapComponent loadMap={setMapsLoaded} pickupMarker={pickupCoordinates} dropoffMarker={dropoffCoordinates} />
         {isMapsLoaded && !ongoingRide && (
           <>
-            <AutoCompleteSearchBox placeholder="Pickup Location" state={{ location: pickupLocation, setLocation: setPickupLocation, ref: pickupRef, setCoordinates: setPickupCoordinates }} />
-            <AutoCompleteSearchBox placeholder="Dropoff Location" state={{ location: dropoffLocation, setLocation: setDropoffLocation, ref: dropoffRef, setCoordinates: setDropoffCoordinates }} />
+            <AutoCompleteSearchBox placeholder="Pickup Location" state={{ location: pickupLocation, setLocation: setPickupLocation, setCoordinates: setPickupCoordinates }} />
+            <AutoCompleteSearchBox placeholder="Dropoff Location" state={{ location: dropoffLocation, setLocation: setDropoffLocation, setCoordinates: setDropoffCoordinates }} />
           </>
         )}
         {

@@ -1,4 +1,4 @@
-import React, { Dispatch, RefObject, SetStateAction, useCallback } from 'react';
+import React, { Dispatch, RefObject, SetStateAction, useCallback, useRef } from 'react';
 import { Autocomplete } from '@react-google-maps/api';
 import { GeoLocation } from '~/interfaces/types';
 
@@ -7,13 +7,17 @@ type SearchBoxType = {
   state: {
     location: string,
     setLocation: Dispatch<SetStateAction<string>>,
-    ref: RefObject<google.maps.places.Autocomplete>,
     setCoordinates: Dispatch<SetStateAction<GeoLocation>>
   };
 };
 
 export default function AutoCompleteSearchBox({ placeholder, state }: SearchBoxType) {
-  const { setLocation, setCoordinates, ref } = state;
+  const { setLocation, setCoordinates } = state;
+  let ref = useRef<google.maps.places.Autocomplete | null>(null);
+
+  const setRef = (autocomplete: google.maps.places.Autocomplete) => {
+    ref.current = autocomplete;
+  };
 
   const onPlaceChanged = useCallback(() => {
     const autocomplete = ref.current;
@@ -32,11 +36,12 @@ export default function AutoCompleteSearchBox({ placeholder, state }: SearchBoxT
     }
   }, [setLocation, setCoordinates, ref]);
 
+
+
+
   return (
     <Autocomplete
-      onLoad={(autocomplete) => {
-        ref.current = autocomplete;
-      }}
+      onLoad={setRef}
       onPlaceChanged={onPlaceChanged}
     >
       <input
