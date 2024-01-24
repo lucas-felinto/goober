@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import Head from 'next/head';
 
 import AutoCompleteSearchBox from '~/app/components/Rider/AutoCompleteSearchBox';
 import UserCard from '~/app/components/UserCard';
@@ -37,10 +38,9 @@ const Rider = () => {
   //Real time channel 
   supabase.watchRide(refetchOngoingRide);
 
-  const { data: fare } = useQuery({
+  const { data: fare, refetch: refetchFare } = useQuery({
     queryKey: ['fare'],
     queryFn: async () => await ride.calculateFare(pickupCoordinates, dropoffCoordinates),
-    enabled: !ongoingRide
   })
 
   useEffect(() => {
@@ -55,6 +55,10 @@ const Rider = () => {
       setDropoffCoordinates(coordinates.dropoffCoordinates)
     }
   }, [ongoingRide])
+
+  useEffect(() => {
+    refetchFare()
+  }, [pickupCoordinates, dropoffCoordinates])
 
   useEffect(() => {
     refetchOngoingRide()
@@ -94,6 +98,9 @@ const Rider = () => {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-200 to-pink-200 flex items-center justify-center">
+      <Head>
+        <title>Rider</title>
+      </Head>
       <div className="max-w-md mx-auto my-10 p-6 bg-white shadow-md rounded-lg space-y-4">
         {selectedRider && !ongoingRide?.id && !searchingDriver && (
           <>
