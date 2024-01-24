@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Rider } from '~/interfaces/types';
 import { RiderService } from '~/server/services/RiderService';
 
 export default async function handler(

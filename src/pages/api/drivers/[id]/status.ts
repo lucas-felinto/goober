@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { DriverStatus, Status } from '~/interfaces/types';
+import { DriverStatus } from '~/interfaces/types';
 import { DriverService } from '~/server/services/DriverService';
 
 type ResponseData = {

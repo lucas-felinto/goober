@@ -1,15 +1,18 @@
 import { useRef, useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
+
 import AutoCompleteSearchBox from '~/app/components/Rider/AutoCompleteSearchBox';
 import UserCard from '~/app/components/UserCard';
 import GoogleMapComponent from '~/app/components/Map';
 import RideInfoCard from '~/app/components/Rider/RideInfoCard';
-import { useQuery } from '@tanstack/react-query';
-import { Coordinates, GeoLocation, Status } from '~/interfaces/types';
-import ride from '~/app/services/RideService'
-import supabase from '~/app/services/SupabaseService'
 import NotificationCard from '~/app/components/Rider/NotificationCard';
 import SearchingDriverCard from '~/app/components/Rider/SearchingDriverCard';
 import MoveUpPassangerCard from '~/app/components/MoveUpPassangerCard';
+
+import { Coordinates, GeoLocation, Status } from '~/interfaces/types';
+import ride from '~/app/services/RideService'
+import supabase from '~/app/services/SupabaseService'
+
 import useRider from '~/app/hooks/UseRider';
 
 const Rider = () => {
@@ -29,7 +32,6 @@ const Rider = () => {
   const { data: ongoingRide, refetch: refetchOngoingRide } = useQuery({
     queryKey: ['ongoingRide'],
     queryFn: async () => await ride.getOngoingRide({ riderId: selectedRider?.id }),
-    // enabled: Boolean(selectedRider?.id),
   });
 
   //Real time channel 
