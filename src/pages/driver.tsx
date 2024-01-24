@@ -53,6 +53,7 @@ function Driver() {
     const act = rideActionsMap[action];
     if (rideId && selectedDriver) {
       await act({ id: rideId, driverId: selectedDriver?.id });
+      refetchRide()
     }
     if (action === Actions.CANCEL || Actions.COMPLETE || Actions.DECLINE) refetchRequest();
   };
@@ -73,9 +74,6 @@ function Driver() {
           />
         </div>
       )}
-      {ongoingRide?.id && (
-        <OngoingRide handleRide={handleRide} ride={ongoingRide} />
-      )}
       {!ongoingRide?.id && rideRequest?.id && (
         <RideRequestCard
           fare={rideRequest.fare}
@@ -83,6 +81,9 @@ function Driver() {
           dropoffLocation={rideRequest.dropoffAddress}
           action={handleRide}
         />
+      )}
+      {ongoingRide?.id && (
+        <OngoingRide handleRide={handleRide} ride={ongoingRide} />
       )}
     </div>
   );
