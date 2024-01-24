@@ -1,14 +1,14 @@
 export type Rider = {
   id: number;
   name: string;
-  imageUrl?: string;
+  imageUrl: string | null;
   rides?: Ride[]
 };
 
 export type Driver = {
   id: number;
   name: string;
-  imageUrl?: string;
+  imageUrl: string | null;
   status: string;
   rides?: Ride[];
 }
