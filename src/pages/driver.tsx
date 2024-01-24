@@ -1,13 +1,17 @@
 import { useQuery } from '@tanstack/react-query'
 import React, { useEffect } from 'react'
+
 import OngoingRide from '~/app/components/Driver/OngoingRide'
 import RideRequestCard from '~/app/components/Driver/RideRequestCard'
 import WaitingRideRequestCard from '~/app/components/Driver/WaitingRideRequestCard'
-import { Actions } from '~/interfaces/types'
-import ride from '~/app/services/RideService'
-import driver from '~/app/services/DriverService'
-import supabase from '~/app/services/SupabaseService'
 import UserCard from '~/app/components/UserCard'
+
+import { Actions } from '~/interfaces/types'
+
+import ride from '~/app/services/RideService'
+import supabase from '~/app/services/SupabaseService'
+import driver from '~/app/services/DriverService'
+
 import useDriver from '~/app/hooks/UseDriver'
 
 type RideAction = { id: number; driverId: number };

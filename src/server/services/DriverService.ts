@@ -1,4 +1,4 @@
-import { db } from '../db'; // Adjust the path as necessary
+import { db } from '../db';
 import { Driver, DriverStatus, Status } from '~/interfaces/types';
 import { IDriverService } from '~/interfaces/DriverInterface';
 

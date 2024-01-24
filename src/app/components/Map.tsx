@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { GoogleMap, LoadScript, Marker, Autocomplete } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { GeoLocation } from '~/interfaces/types';
 
 const containerStyle = {

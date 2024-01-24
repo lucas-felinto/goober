@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { Dispatch, MutableRefObject, RefObject, SetStateAction, useCallback } from 'react';
+import React, { Dispatch, RefObject, SetStateAction, useCallback } from 'react';
 import { Autocomplete } from '@react-google-maps/api';
 import { GeoLocation } from '~/interfaces/types';
 
