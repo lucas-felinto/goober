@@ -18,7 +18,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-const UserCard = ({ user, selectUser, usersOptions }: UserCardProps) => {
+const UserCard: React.FC<UserCardProps> = ({ user, selectUser, usersOptions }) => {
   return (
     <Listbox value={user} onChange={selectUser}>
       {({ open }) => (

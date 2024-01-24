@@ -8,7 +8,7 @@ type RideRequestCardType = {
   action: (action: Actions) => void
 }
 
-export default function RideRequestCard(props: RideRequestCardType) {
+const RideRequestCard: React.FC<RideRequestCardType> = (props) => {
   return (
     <div className="h-screen w-screen flex flex-col items-center justify-center p-8">
       <div className="rounded-lg border bg-white text-card-foreground shadow-sm w-full max-w-md" data-v0-t="card">
@@ -64,3 +64,5 @@ export default function RideRequestCard(props: RideRequestCardType) {
     </div>
   )
 }
+
+export default RideRequestCard;

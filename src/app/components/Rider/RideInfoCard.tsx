@@ -10,7 +10,7 @@ type RideInfoCardType = {
   dropoffLocation?: GeoLocation
 }
 
-const RideInfoCard = ({ fare, distance, duration }: RideInfoCardType) => {
+const RideInfoCard: React.FC<RideInfoCardType> = ({ fare, distance, duration }) => {
   return (
     <div className="w-full max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden">
       <div className="flex justify-between items-center p-6">

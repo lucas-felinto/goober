@@ -11,7 +11,7 @@ type SearchBoxType = {
   };
 };
 
-export default function AutoCompleteSearchBox({ placeholder, state }: SearchBoxType) {
+const AutoCompleteSearchBox: React.FC<SearchBoxType> = ({ placeholder, state }) => {
   const { setLocation, setCoordinates } = state;
   let ref = useRef<google.maps.places.Autocomplete | null>(null);
 
@@ -54,3 +54,5 @@ export default function AutoCompleteSearchBox({ placeholder, state }: SearchBoxT
     </Autocomplete>
   );
 }
+
+export default AutoCompleteSearchBox

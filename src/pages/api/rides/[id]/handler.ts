@@ -33,7 +33,7 @@ export default async function acceptRideHandler(
     }
 
     const driver = new DriverService()
-    const driverExists = driver.getDriverDetails(driverId)
+    const driverExists = await driver.getDriverDetails(driverId)
 
     if (!driverExists) {
       return res.status(400).json({ error: 'Invalid driver' });

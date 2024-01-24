@@ -5,7 +5,7 @@ type WaitingRideRequestCardType = {
   driver: Person
 }
 
-export default function WaitingRideRequestCard(props: WaitingRideRequestCardType) {
+const WaitingRideRequestCard: React.FC<WaitingRideRequestCardType> = (props) => {
   return (
     <div
       className="border bg-card bg-gradient-to-r from-blue-400 to-green-400 text-white p-6 rounded-lg shadow-lg"
@@ -24,3 +24,5 @@ export default function WaitingRideRequestCard(props: WaitingRideRequestCardType
     </div>
   )
 }
+
+export default WaitingRideRequestCard

@@ -5,7 +5,7 @@ type MoveUpPassangerCardType = {
   message: string
 }
 
-export default function MoveUpPassangerCard({ address, message }: MoveUpPassangerCardType) {
+const MoveUpPassangerCard: React.FC<MoveUpPassangerCardType> = ({ address, message }) => {
   return (
     <div className="rounded-lg text-card-foreground bg-green-100 border border-green-200 shadow-md p-4" data-v0-t="card">
       <div className="flex-col space-y-1.5 p-6 flex items-center space-x-2">
@@ -52,3 +52,5 @@ export default function MoveUpPassangerCard({ address, message }: MoveUpPassange
     </div>
   )
 }
+
+export default MoveUpPassangerCard

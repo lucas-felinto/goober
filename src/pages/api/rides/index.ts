@@ -34,7 +34,7 @@ export default async function handler(
     const { riderId, fare, distance, coordinates, pickupAddress, dropoffAddress } = req.body;
 
     if (!riderId || !fare || !distance || !pickupAddress || !dropoffAddress) {
-      return res.status(400).json({ error: 'Missing required fields' });
+      return res.status(400).json({ error: "Missing required fields" });
     }
 
     const driver = new DriverService()

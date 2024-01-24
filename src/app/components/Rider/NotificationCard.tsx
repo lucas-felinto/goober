@@ -5,7 +5,7 @@ type NotificationCardType = {
   onClose: Dispatch<SetStateAction<boolean>>
 }
 
-const NotificationCard = ({ isVisible, onClose }: NotificationCardType) => {
+const NotificationCard: React.FC<NotificationCardType> = ({ isVisible, onClose }) => {
   if (!isVisible) return null;
 
   return (

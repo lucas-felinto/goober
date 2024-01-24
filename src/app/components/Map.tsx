@@ -18,7 +18,7 @@ type MapsType = {
   dropoffMarker: GeoLocation
 }
 
-const GoogleMapComponent = (props: MapsType) => {
+const GoogleMapComponent: React.FC<MapsType> = (props) => {
   return (
     <LoadScript
       googleMapsApiKey="AIzaSyAzM-6O1EpodVOXMVbyvvV3juBc4aeQN_4"

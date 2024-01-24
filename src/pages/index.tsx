@@ -17,13 +17,13 @@ export default function HomePage() {
           className="inline-flex h-12 items-center justify-center rounded-md px-8 text-sm font-medium bg-white text-black rounded hover:bg-black hover:text-white transition duration-300 focus-visible:outline-none focus-visible:ring- disabled:pointer-events-none disabled:opacity-50"
           href="/rider"
         >
-          I'm a Rider
+          {"I'm a Rider"}
         </Link>
         <Link
           className="inline-flex h-12 items-center justify-center rounded-md px-8 text-sm font-medium bg-black text-white rounded hover:bg-white hover:text-black transition duration-300 focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50"
           href="/driver"
         >
-          I'm a Driver
+          {"I'm a Driver"}
         </Link>
       </div>
     </section>
