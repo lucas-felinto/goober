@@ -62,11 +62,11 @@ const Rider = () => {
   }, [selectedRider])
 
   const requestRideHandler = async () => {
-    if (fare) {
+    if (fare && selectedRider?.id) {
       setSearchingDriver(true)
 
       const requestRideParams = {
-        riderId: 1,
+        riderId: selectedRider?.id,
         fare: fare?.price,
         distance: fare?.distance.text,
         coordinates: JSON.stringify({
