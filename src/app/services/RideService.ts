@@ -13,6 +13,8 @@ type FareResponse = {
   price: number
 }
 
+type StandartResponse = { message: string }
+
 class RideService {
   path: string;
 
@@ -35,7 +37,7 @@ class RideService {
     return elements
   }
 
-  async requestRide(params: CreateParams): Promise<{ message: string }> {
+  async requestRide(params: CreateParams): Promise<StandartResponse> {
     return await fetch(this.path, {
       method: 'POST',
       headers: {
@@ -45,7 +47,7 @@ class RideService {
     }).then((res) => res.json())
   }
 
-  async handler(rideId: number, driverId: number, action: Actions): Promise<{ message: string }> {
+  async handler(rideId: number, driverId: number, action: Actions): Promise<StandartResponse> {
     return await fetch(this.path + `/${rideId}/handler`, {
       method: 'PATCH',
       headers: {
@@ -55,7 +57,7 @@ class RideService {
     }).then((res) => res.json())
   }
 
-  async start(rideId: number, driverId: number): Promise<{ message: string }> {
+  async start(rideId: number, driverId: number): Promise<StandartResponse> {
     return await fetch(this.path + `/${rideId}/start`, {
       method: 'PATCH',
       headers: {
@@ -65,7 +67,7 @@ class RideService {
     }).then((res) => res.json())
   }
 
-  async cancel(rideId: number, driverId: number): Promise<{ message: string }> {
+  async cancel(rideId: number, driverId: number): Promise<StandartResponse> {
     return await fetch(this.path + `/${rideId}/cancel`, {
       method: 'PATCH',
       headers: {
@@ -75,7 +77,7 @@ class RideService {
     }).then((res) => res.json())
   }
 
-  async complete(rideId: number, driverId: number): Promise<{ message: string }> {
+  async complete(rideId: number, driverId: number): Promise<StandartResponse> {
     return await fetch(this.path + `/${rideId}/complete`, {
       method: 'PATCH',
       headers: {
@@ -85,7 +87,7 @@ class RideService {
     }).then((res) => res.json())
   }
 
-  async decline(rideId: number, driverId: number): Promise<{ message: string }> {
+  async decline(rideId: number, driverId: number): Promise<StandartResponse> {
     return await fetch(this.path + `/${rideId}/decline`, {
       method: 'PATCH',
       headers: {

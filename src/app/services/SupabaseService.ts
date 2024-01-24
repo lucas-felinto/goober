@@ -24,14 +24,13 @@ class Supabase {
   }
 
   watchRideRequests(refetch: RefetchType) {
-    return this.client
-      .channel('DriverDeclines')
+    this.client
+      .channel('Driver')
       .on('postgres_changes', {
         event: 'UPDATE',
         schema: 'public',
         table: 'Driver'
-      }, (_) => {
-        console.log('driver updated')
+      }, () => {
         refetch()
       }).subscribe()
   }

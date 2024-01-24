@@ -26,7 +26,6 @@ function Driver() {
 
   //Real time channel 
   supabase.watchRideRequests(refetchRequest)
-  // supabase.watchDriverDeclines(refetchRequest);
   supabase.watchRide(refetchRide);
 
   useEffect(() => {
