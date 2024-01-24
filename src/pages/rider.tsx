@@ -37,10 +37,9 @@ const Rider = () => {
   //Real time channel 
   supabase.watchRide(refetchOngoingRide);
 
-  const { data: fare } = useQuery({
+  const { data: fare, refetch: refetchFare } = useQuery({
     queryKey: ['fare'],
     queryFn: async () => await ride.calculateFare(pickupCoordinates, dropoffCoordinates),
-    enabled: !ongoingRide
   })
 
   useEffect(() => {
@@ -55,6 +54,10 @@ const Rider = () => {
       setDropoffCoordinates(coordinates.dropoffCoordinates)
     }
   }, [ongoingRide])
+
+  useEffect(() => {
+    refetchFare()
+  }, [pickupCoordinates, dropoffCoordinates])
 
   useEffect(() => {
     refetchOngoingRide()
