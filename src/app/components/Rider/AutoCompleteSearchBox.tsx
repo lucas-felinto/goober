@@ -13,7 +13,7 @@ type SearchBoxType = {
 
 const AutoCompleteSearchBox: React.FC<SearchBoxType> = ({ placeholder, state }) => {
   const { setLocation, setCoordinates } = state;
-  let ref = useRef<google.maps.places.Autocomplete | null>(null);
+  const ref = useRef<google.maps.places.Autocomplete | null>(null);
 
   const setRef = (autocomplete: google.maps.places.Autocomplete) => {
     ref.current = autocomplete;
