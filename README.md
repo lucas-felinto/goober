@@ -6,7 +6,7 @@
 Goober is an ride-sharing web application, designed as a minimum viable product (MVP) that closely emulates real-world ride-sharing services. This project was built as a full-stack solution, including a front-end user interface, back-end API, real-time data handling, and a database.
 
 ## Running Live
-[Web-app deployed at Vercel]("")
+[Live app deployed at Vercel](https://goober-6oj7.vercel.app/)
 
 ## Running Locally
 
