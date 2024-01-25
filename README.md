@@ -16,8 +16,7 @@ Goober is an ride-sharing web application, designed as a minimum viable product 
   pnpm run dev
 ```
 ## High-level Architecture
-![Novo mural](https://github.com/lucas-felinto/goober/assets/62717182/747a5f0b-c6be-47a9-91dc-c035ea263dba)
-
+![Novo mural (1)](https://github.com/lucas-felinto/goober/assets/62717182/f09cc9ba-1833-4ebe-9d3d-351520f3d666)
 
 ## Technologies
 - **Framework**: Built on the [T3 Stack](https://create.t3.gg/) stack for efficient full-stack development.
