@@ -11,6 +11,7 @@ Goober is an ride-sharing web application, designed as a minimum viable product 
 ## Running Locally
 
 ```bash
+  cp .env.example .env
   pnpm install
   pnpm run dev
 ```
