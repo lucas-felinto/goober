@@ -20,30 +20,42 @@ model Rider {
 }
 
 model Driver {
-  id        Int       @id @default(autoincrement())
-  name      String
-  imageUrl  String?
-  status    String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime?
-  Rides     Ride[]
+  id            Int             @id @default(autoincrement())
+  name          String
+  imageUrl      String?
+  status        String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime?
+  Rides         Ride[]
+  DeclinesRides DeclinesRides[]
 }
 
 model Ride {
-  id             Int       @id @default(autoincrement())
+  id             Int             @id @default(autoincrement())
   status         String
   fare           Int
   distance       String
   pickupAddress  String
   dropoffAddress String
   coordinates    String
-  rider          Rider?    @relation(fields: [riderId], references: [id])
+  rider          Rider?          @relation(fields: [riderId], references: [id])
   riderId        Int
-  driver         Driver?   @relation(fields: [driverId], references: [id])
+  driver         Driver?         @relation(fields: [driverId], references: [id])
   driverId       Int
   canceledBy     String?
   startedAt      DateTime?
   completedAt    DateTime?
-  createdAt      DateTime  @default(now())
+  createdAt      DateTime        @default(now())
   updatedAt      DateTime?
+  DeclinesRides  DeclinesRides[]
+}
+
+model DeclinesRides {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  ride      Ride?     @relation(fields: [rideId], references: [id])
+  rideId    Int
+  driver    Driver?   @relation(fields: [driverId], references: [id])
+  driverId  Int
+  updatedAt DateTime?
 }

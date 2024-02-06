@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Ride } from '~/interfaces/types';
+import DeclineRides from '~/server/services/DeclineRides';
 import { DriverService } from '~/server/services/DriverService';
 import { RideService } from '~/server/services/RideService';
 
@@ -33,6 +34,13 @@ export default async function handler(
 
     const rideService = new RideService();
     const rideRequest = await rideService.getRideRequestForDriver(driverId);
+
+    if (rideRequest?.id) {
+      const declinedRides = new DeclineRides();
+      const declinedRide = await declinedRides.fetchDeclinedRide(driverId, rideRequest.id);
+
+      if (declinedRide) return res.status(400).json({ error: 'Ride already declined by driver' });
+    }
 
     return res.status(200).json(rideRequest);
   } catch (error) {

@@ -30,6 +30,14 @@ export type Ride = {
   endAt?: Date | null;
 }
 
+export type RidesDeclined = {
+  id: number;
+  driver?: Driver;
+  driverId: number;
+  ride?: Ride;
+  rideId: number;
+}
+
 export enum DriverStatus {
   AVAILABLE = "available",
   ON_RIDE = "on_ride",

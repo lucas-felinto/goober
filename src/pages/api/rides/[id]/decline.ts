@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { DriverStatus } from '~/interfaces/types';
+import DeclineRides from '~/server/services/DeclineRides';
 import { DriverService } from '~/server/services/DriverService';
 import { RideService } from '~/server/services/RideService';
 
@@ -40,6 +41,10 @@ export default async function acceptRideHandler(
     }
 
     const newAvailableDriver = await driver.findAvailableDriver();
+
+    const ridesDeclined = new DeclineRides()
+    await ridesDeclined.createDecline(driverId, rideId)
+
     await ride.update({ rideId, driverId: newAvailableDriver?.id });
     await driver.update(driverId, DriverStatus.AVAILABLE);
     if (newAvailableDriver?.id) {
